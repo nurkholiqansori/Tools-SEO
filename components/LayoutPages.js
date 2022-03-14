@@ -13,7 +13,7 @@ const LayoutPages = ({ children }) => {
       <Container>
         <Content>{children}</Content>
       </Container>
-      <Footer>
+      <Footer id='result'>
         <Content textAlign='centered'>
           <p>
             &copy;{' '}

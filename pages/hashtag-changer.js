@@ -1,7 +1,6 @@
 import React from 'react'
 import LayoutPages from '../components/LayoutPages'
 import {
-  Box,
   Button,
   Column,
   Control,
@@ -12,7 +11,10 @@ import {
   Message,
   Notification,
   Delete,
+  Card,
+  Generic,
 } from 'rbx'
+import { useRouter } from 'next/router'
 
 const hashtagChanger = () => {
   const [phrase, setPhrase] = React.useState('')
@@ -21,6 +23,9 @@ const hashtagChanger = () => {
   const [smallCase, setSmallCase] = React.useState(false)
   const [warningNotification, setWarningNotification] = React.useState(false)
   const [warningMessage, setWarningMessage] = React.useState('')
+  const router = useRouter()
+  const resultState = React.useRef(null)
+  const [successCopy, setSuccessCopy] = React.useState(false)
 
   const submitHandler = () => {
     setLoadingForm(true)
@@ -35,7 +40,7 @@ const hashtagChanger = () => {
     const searchSpecified = phrase.search(', ')
     if (searchSpecified === -1) {
       setLoadingForm(false)
-      setWarningMessage('Your phrase doesn\'t meet our requirements')
+      setWarningMessage("Your phrase doesn't meet our requirements")
       setWarningNotification(true)
       return false
     }
@@ -47,7 +52,7 @@ const hashtagChanger = () => {
       setWarningNotification(true)
       return false
     }
-    
+
     const phraseArray = phrase.split(', ')
     const hashtag = '#'
     if (smallCase) {
@@ -60,6 +65,7 @@ const hashtagChanger = () => {
       })
       const resultJoin = resultPhrase.join(' ')
       setResult(resultJoin.toString().toLowerCase())
+      router.push('#result')
     } else {
       let resultPhrase = []
       phraseArray.forEach((el) => {
@@ -70,6 +76,7 @@ const hashtagChanger = () => {
       })
       const resultJoin = resultPhrase.join(' ')
       setResult(resultJoin.toString())
+      router.push('#result')
     }
     //Closing
     setLoadingForm(false)
@@ -77,6 +84,15 @@ const hashtagChanger = () => {
 
   const resetForm = () => {
     setPhrase('')
+    setResult('')
+  }
+
+  const copyResult = () => {
+    navigator.clipboard.writeText(resultState.current.innerText)
+    setSuccessCopy(true)
+    setInterval(() => {
+      setSuccessCopy(false)
+    }, 2000)
   }
 
   return (
@@ -111,10 +127,13 @@ const hashtagChanger = () => {
         </Column.Group>
         {warningNotification ? (
           <Notification color='danger'>
-            <Delete as='button' onClick={() => {
-              setWarningNotification(false)
-              setWarningMessage('')
-              }} />
+            <Delete
+              as='button'
+              onClick={() => {
+                setWarningNotification(false)
+                setWarningMessage('')
+              }}
+            />
             {warningMessage ? warningMessage : 'Something Error'}
           </Notification>
         ) : (
@@ -155,10 +174,63 @@ const hashtagChanger = () => {
           </Button.Group>
         </Section>
         <Section>
-          <Title as='h2' size='5'>
-            Result converting
-          </Title>
-          <Box>{result ? result : 'Results will be displayed here'}</Box>
+          <Card>
+            <Card.Header>
+              <Card.Header.Title>Result converting</Card.Header.Title>
+              <Card.Header.Icon>
+                {result ? (
+                  <>
+                    <Button
+                      tooltip='Success'
+                      tooltipMultiline
+                      tooltipActive
+                      rounded
+                      color='black'
+                      onClick={() =>
+                        copyResult()
+                      }
+                    >
+                      {successCopy ? <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        width='24px'
+                        height='24px'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        stroke='white'
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                          d='M5 13l4 4L19 7'
+                        />
+                      </svg> :
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        width='24px'
+                        height='24px'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        stroke='white'
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                          d='M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2'
+                        />
+                      </svg>}
+                    </Button>
+                  </>
+                ) : (
+                  ''
+                )}
+              </Card.Header.Icon>
+            </Card.Header>
+            <Card.Content ref={resultState}>
+              {result ? result : 'Results will be displayed here'}
+            </Card.Content>
+          </Card>
         </Section>
       </Section>
     </LayoutPages>
