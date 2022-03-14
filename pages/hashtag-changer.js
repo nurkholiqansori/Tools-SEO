@@ -20,32 +20,57 @@ const hashtagChanger = () => {
   const [loadingForm, setLoadingForm] = React.useState(false)
   const [smallCase, setSmallCase] = React.useState(false)
   const [warningNotification, setWarningNotification] = React.useState(false)
+  const [warningMessage, setWarningMessage] = React.useState('')
 
   const submitHandler = () => {
     setLoadingForm(true)
 
     if (!phrase) {
       setLoadingForm(false)
+      setWarningMessage('Form must be filled')
       setWarningNotification(true)
+      return false
     }
+
+    const searchSpecified = phrase.search(', ')
+    if (searchSpecified === -1) {
+      setLoadingForm(false)
+      setWarningMessage('Your phrase doesn\'t meet our requirements')
+      setWarningNotification(true)
+      return false
+    }
+
+    const newLineSearch = phrase.search('\n')
+    if (newLineSearch !== -1) {
+      setLoadingForm(false)
+      setWarningMessage("Your phrase doesn't meet our requirements")
+      setWarningNotification(true)
+      return false
+    }
+    
     const phraseArray = phrase.split(', ')
     const hashtag = '#'
-    const emptyString = ''
-
     if (smallCase) {
-      setLoadingForm(false)
-    } else {
       let resultPhrase = []
-      phraseArray.forEach(el => {
+      phraseArray.forEach((el) => {
         const selectionArray = hashtag.concat(el)
         const splitArray = selectionArray.split(' ')
         const joinArray = splitArray.join('')
         resultPhrase.push(joinArray)
-      });
+      })
+      const resultJoin = resultPhrase.join(' ')
+      setResult(resultJoin.toString().toLowerCase())
+    } else {
+      let resultPhrase = []
+      phraseArray.forEach((el) => {
+        const selectionArray = hashtag.concat(el)
+        const splitArray = selectionArray.split(' ')
+        const joinArray = splitArray.join('')
+        resultPhrase.push(joinArray)
+      })
       const resultJoin = resultPhrase.join(' ')
       setResult(resultJoin.toString())
     }
-
     //Closing
     setLoadingForm(false)
   }
@@ -86,8 +111,11 @@ const hashtagChanger = () => {
         </Column.Group>
         {warningNotification ? (
           <Notification color='danger'>
-            <Delete as='button' onClick={() => setWarningNotification(false)} />
-            Form must be filled
+            <Delete as='button' onClick={() => {
+              setWarningNotification(false)
+              setWarningMessage('')
+              }} />
+            {warningMessage ? warningMessage : 'Something Error'}
           </Notification>
         ) : (
           ''
