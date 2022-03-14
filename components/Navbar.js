@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navbar, Title, Field, Control, Button } from 'rbx'
+import { Navbar, Title, Field, Control, Button, Icon } from 'rbx'
 
 const NavBar = () => {
   return (
@@ -15,32 +15,15 @@ const NavBar = () => {
         </Navbar.Brand>
         <Navbar.Menu>
           <Navbar.Segment align='start'>
-            <Navbar.Item href='/'>Home</Navbar.Item>
+            <Navbar.Item href='/'>Beranda</Navbar.Item>
             <Navbar.Item dropdown hoverable>
               <Navbar.Link href='https://bulma.io/documentation/overview/start/'>
-                Tools
+                Alat
               </Navbar.Link>
               <Navbar.Dropdown>
+                <Navbar.Item href='/comma-separator'>Comma Changer</Navbar.Item>
                 <Navbar.Item href='/hashtag-changer'>
                   Hashtag Changer
-                </Navbar.Item>
-                <Navbar.Item href='https://bulma.io/documentation/modifiers/syntax/'>
-                  Modifiers
-                </Navbar.Item>
-                <Navbar.Item href='https://bulma.io/documentation/columns/basics/'>
-                  Columns
-                </Navbar.Item>
-                <Navbar.Item href='https://bulma.io/documentation/layout/container/'>
-                  Layout
-                </Navbar.Item>
-                <Navbar.Item href='https://bulma.io/documentation/form/general/'>
-                  Form
-                </Navbar.Item>
-                <Navbar.Item
-                  active
-                  href='https://bulma.io/documentation/components/breadcrumb/'
-                >
-                  Components
                 </Navbar.Item>
               </Navbar.Dropdown>
             </Navbar.Item>
@@ -49,17 +32,13 @@ const NavBar = () => {
             <Navbar.Item as='div'>
               <Field kind='group'>
                 <Control>
-                  <Button as='a' color='info' href='https://twitter.com'>
-                    <span>Tweet</span>
-                  </Button>
-                </Control>
-                <Control>
                   <Button
                     as='a'
                     color='primary'
-                    href='https://github.com/dfee/rbx'
+                    href='https://www.nurkholiqansori.me'
+                    rounded
                   >
-                    <span>GitHub</span>
+                    <span>Website saya</span>
                   </Button>
                 </Control>
               </Field>

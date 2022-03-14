@@ -8,24 +8,11 @@ const Home = () => (
       <Card>
         <Card.Content>
           <Content>
-            <Link href='/hashtag-changer'>
+            <Link href='/comma-separator'>
               <a>
-                <Title as="h3">Hashtag Changer &rarr;</Title>
-                <p>For Example Jasa Pembuatan Website, will changer to #JasaPembuatanWebsite or more settings</p>
-              </a>
-            </Link>
-          </Content>
-        </Card.Content>
-      </Card>
-      {/* <Card>
-        <Card.Content>
-          <Content>
-            <Link href="https://github.com/vercel/next.js/tree/canary/examples">
-              <a>
-                <Title as="h3">Examples &rarr;</Title>
+                <Title as='h3'>Comma Changer &rarr;</Title>
                 <p>
-                  Find other example boilerplates on the{' '}
-                  <code>create-next-app</code> site
+                  Menambahkan koma pada setiap frasa
                 </p>
               </a>
             </Link>
@@ -35,15 +22,17 @@ const Home = () => (
       <Card>
         <Card.Content>
           <Content>
-            <Link href="https://github.com/vercel/next.js/tree/canary/packages/create-next-app">
+            <Link href='/hashtag-changer'>
               <a>
-                <Title as="h3">Create Next App &rarr;</Title>
-                <p>Was this tool helpful? Let us know how we can improve it</p>
+                <Title as='h3'>Hashtag Changer &rarr;</Title>
+                <p>
+                  Sebagai contoh <code>Jasa Pembuatan Website</code>, akan diubah menjadi <code>#JasaPembuatanWebsite</code> dan disediakan pengaturan hasilnya
+                </p>
               </a>
             </Link>
           </Content>
         </Card.Content>
-      </Card> */}
+      </Card>
     </Section>
   </Layout>
 )

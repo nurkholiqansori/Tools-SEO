@@ -1,16 +1,11 @@
-import Link from 'next/link'
 import {
   Generic,
   Container,
   Content,
-  Navbar,
   Section,
   Hero,
   Title,
   Footer,
-  Field,
-  Control,
-  Button,
 } from 'rbx'
 import NavBar from './Navbar'
 
@@ -23,7 +18,7 @@ const Layout = ({ children }) => {
           <Hero.Body>
             <Container>
               <Title as='h1' align='center' color='white'>
-                Welcome to Tools SEO
+                Selamat datang di Tools SEO
               </Title>
             </Container>
           </Hero.Body>
