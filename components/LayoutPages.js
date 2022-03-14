@@ -13,13 +13,15 @@ import {
   Button,
 } from 'rbx'
 
-const Layout = ({ children }) => {
+const LayoutPages = ({ children }) => {
   return (
     <Generic>
       <Navbar>
         <Navbar.Brand>
           <Navbar.Item href='/'>
-            <Title as='h1' size='4'>Tools SEO</Title>
+            <Title as='h1' size='4'>
+              Tools SEO
+            </Title>
           </Navbar.Item>
           <Navbar.Burger />
         </Navbar.Brand>
@@ -64,7 +66,6 @@ const Layout = ({ children }) => {
               <Field kind='group'>
                 <Control>
                   <Button as='a' color='info' href='https://twitter.com'>
-                    
                     <span>Tweet</span>
                   </Button>
                 </Control>
@@ -74,7 +75,6 @@ const Layout = ({ children }) => {
                     color='primary'
                     href='https://github.com/dfee/rbx'
                   >
-                    
                     <span>GitHub</span>
                   </Button>
                 </Control>
@@ -83,17 +83,6 @@ const Layout = ({ children }) => {
           </Navbar.Segment>
         </Navbar.Menu>
       </Navbar>
-      <Section backgroundColor='primary'>
-        <Hero color='black'>
-          <Hero.Body>
-            <Container>
-              <Title as='h1' align='center' color='white'>
-                Welcome to Tools SEO
-              </Title>
-            </Container>
-          </Hero.Body>
-        </Hero>
-      </Section>
       <Container>
         <Content>{children}</Content>
       </Container>
@@ -117,4 +106,4 @@ const Layout = ({ children }) => {
   )
 }
 
-export default Layout
+export default LayoutPages

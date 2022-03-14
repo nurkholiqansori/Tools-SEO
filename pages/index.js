@@ -8,16 +8,16 @@ const Home = () => (
       <Card>
         <Card.Content>
           <Content>
-            <Link href="https://github.com/vercel/next.js#getting-started">
+            <Link href='/hashtag-changer'>
               <a>
-                <Title as="h3">Getting Started &rarr;</Title>
-                <p>Learn more about Next on Github and in their examples</p>
+                <Title as="h3">Hashtag Changer &rarr;</Title>
+                <p>For Example Jasa Pembuatan Website, will changer to #JasaPembuatanWebsite or more settings</p>
               </a>
             </Link>
           </Content>
         </Card.Content>
       </Card>
-      <Card>
+      {/* <Card>
         <Card.Content>
           <Content>
             <Link href="https://github.com/vercel/next.js/tree/canary/examples">
@@ -43,7 +43,7 @@ const Home = () => (
             </Link>
           </Content>
         </Card.Content>
-      </Card>
+      </Card> */}
     </Section>
   </Layout>
 )
