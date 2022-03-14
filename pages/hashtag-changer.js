@@ -9,6 +9,9 @@ import {
   Textarea,
   Title,
   Select,
+  Message,
+  Notification,
+  Delete,
 } from 'rbx'
 
 const hashtagChanger = () => {
@@ -16,10 +19,35 @@ const hashtagChanger = () => {
   const [result, setResult] = React.useState('')
   const [loadingForm, setLoadingForm] = React.useState(false)
   const [smallCase, setSmallCase] = React.useState(false)
-  console.log(smallCase);
+  const [warningNotification, setWarningNotification] = React.useState(false)
 
   const submitHandler = () => {
     setLoadingForm(true)
+
+    if (!phrase) {
+      setLoadingForm(false)
+      setWarningNotification(true)
+    }
+    const phraseArray = phrase.split(', ')
+    const hashtag = '#'
+    const emptyString = ''
+
+    if (smallCase) {
+      setLoadingForm(false)
+    } else {
+      let resultPhrase = []
+      phraseArray.forEach(el => {
+        const selectionArray = hashtag.concat(el)
+        const splitArray = selectionArray.split(' ')
+        const joinArray = splitArray.join('')
+        resultPhrase.push(joinArray)
+      });
+      const resultJoin = resultPhrase.join(' ')
+      setResult(resultJoin.toString())
+    }
+
+    //Closing
+    setLoadingForm(false)
   }
 
   const resetForm = () => {
@@ -40,28 +68,45 @@ const hashtagChanger = () => {
           </Column>
           <Column>
             <Select.Container rounded color='black'>
-              <Select onChange={(e) => {
-                if (e.target.value === 'yes') {
-                  setSmallCase(true)
-                } else {
-                  setSmallCase(false)
-                }
-              }}>
+              <Select
+                onChange={(e) => {
+                  if (e.target.value === 'yes') {
+                    setSmallCase(true)
+                  } else {
+                    setSmallCase(false)
+                  }
+                }}
+              >
                 <Select.Option>Small case?</Select.Option>
-                <Select.Option value='yes'>
-                  Yes
-                </Select.Option>
-                <Select.Option value='no'>
-                  No
-                </Select.Option>
+                <Select.Option value='yes'>Yes</Select.Option>
+                <Select.Option value='no'>No</Select.Option>
               </Select>
             </Select.Container>
           </Column>
         </Column.Group>
+        {warningNotification ? (
+          <Notification color='danger'>
+            <Delete as='button' onClick={() => setWarningNotification(false)} />
+            Form must be filled
+          </Notification>
+        ) : (
+          ''
+        )}
+        <Message color='black'>
+          <Message.Body>
+            <strong>Note:</strong>
+            <br />
+            For each phrase, it must be delimited by a comma <br />
+            Can use{' '}
+            <a href='/comma-separator' title='Comma Separator'>
+              our tool
+            </a>
+          </Message.Body>
+        </Message>
         <Control loading={loadingForm}>
           <Textarea
             rows={10}
-            placeholder='10 lines of textarea'
+            placeholder='Unlimited of Phrase'
             color='black'
             value={phrase}
             onChange={(e) => setPhrase(e.target.value)}
@@ -85,16 +130,7 @@ const hashtagChanger = () => {
           <Title as='h2' size='5'>
             Result converting
           </Title>
-          <Box>
-            Dolore et Lorem nostrud amet officia cupidatat tempor sunt sunt
-            sint. Ullamco nulla veniam est ad qui consectetur eu laborum duis
-            elit incididunt. Nulla minim esse consequat exercitation consectetur
-            labore non pariatur et est nulla elit excepteur fugiat. Laboris sit
-            in ut veniam ipsum aliqua amet sint ad in fugiat exercitation. Est
-            ad ullamco voluptate fugiat ut reprehenderit sit aliquip velit
-            consequat excepteur ipsum magna id. Esse labore sunt reprehenderit
-            excepteur duis duis quis ex anim veniam.
-          </Box>
+          <Box>{result ? result : 'Results will be displayed here'}</Box>
         </Section>
       </Section>
     </LayoutPages>
