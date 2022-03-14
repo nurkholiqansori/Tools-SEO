@@ -93,7 +93,7 @@ const commaSeparator = () => {
   }
 
   return (
-    <LayoutPages>
+    <LayoutPages title='Comma Changer' url={router.pathname}>
       <Section>
         <Title as='h2' size='5'>
           Masukkan frasa

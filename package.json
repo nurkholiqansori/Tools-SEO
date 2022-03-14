@@ -8,6 +8,7 @@
   "dependencies": {
     "bulma-pro": "^0.2.0",
     "next": "latest",
+    "next-seo": "^5.1.0",
     "rbx": "^2.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"

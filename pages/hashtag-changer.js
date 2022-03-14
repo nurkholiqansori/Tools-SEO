@@ -99,7 +99,7 @@ const hashtagChanger = () => {
   }
 
   return (
-    <LayoutPages>
+    <LayoutPages title='Hashtag Changer' url={router.pathname}>
       <Section>
         <Title as='h2' size='5'>
           Masukkan frasa

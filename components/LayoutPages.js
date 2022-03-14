@@ -5,10 +5,23 @@ import {
   Footer,
 } from 'rbx'
 import NavBar from './Navbar'
+import { NextSeo } from 'next-seo'
 
-const LayoutPages = ({ children }) => {
+const LayoutPages = ({ title, url, children }) => {
   return (
     <Generic>
+      <NextSeo
+        title={`${title} | Tools SEO`}
+        description='Alat untuk membantu pengerjaan SEO dengan masukkan yang tidak terbatas.'
+        canonical='http://tools-seo.vercel.app'
+        openGraph={{
+          url: `http://tools-seo.vercel.app${url}`,
+          title: `${title} | Tools SEO`,
+          description:
+            'Alat untuk membantu pengerjaan SEO dengan masukkan yang tidak terbatas.',
+          site_name: `${title} | Tools SEO`,
+        }}
+      />
       <NavBar />
       <Container>
         <Content>{children}</Content>

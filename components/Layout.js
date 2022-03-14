@@ -8,10 +8,23 @@ import {
   Footer,
 } from 'rbx'
 import NavBar from './Navbar'
+import { NextSeo } from 'next-seo'
 
 const Layout = ({ children }) => {
   return (
     <Generic>
+      <NextSeo
+        title='Beranda | Tools SEO'
+        description='Alat untuk membantu pengerjaan SEO dengan masukkan yang tidak terbatas.'
+        canonical= 'http://tools-seo.vercel.app/'
+        openGraph={{
+          url: 'http://tools-seo.vercel.app/',
+          title: 'Beranda | Tools SEO',
+          description:
+            'Alat untuk membantu pengerjaan SEO dengan masukkan yang tidak terbatas.',
+          site_name: 'Beranda | Tools SEO',
+        }}
+      />
       <NavBar />
       <Section backgroundColor='primary'>
         <Hero color='black'>
