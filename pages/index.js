@@ -33,6 +33,20 @@ const Home = () => (
           </Content>
         </Card.Content>
       </Card>
+      <Card>
+        <Card.Content>
+          <Content>
+            <Link href='/linkwa-generator'>
+              <a>
+                <Title as='h3'>Link WhatsApp Changer &rarr;</Title>
+                <p>
+                  Pembuat link WhatsApp sehingga bisa menghubungi seseorang tanpa menyimpan nomornya
+                </p>
+              </a>
+            </Link>
+          </Content>
+        </Card.Content>
+      </Card>
     </Section>
   </Layout>
 )

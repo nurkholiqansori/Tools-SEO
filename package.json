@@ -3,7 +3,10 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "start:build": "next build && next start",
+    "build:export": "next build && next export",
+    "prod": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "bulma-pro": "^0.2.0",

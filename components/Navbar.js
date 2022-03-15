@@ -25,6 +25,7 @@ const NavBar = () => {
                 <Navbar.Item href='/hashtag-changer'>
                   Hashtag Changer
                 </Navbar.Item>
+                <Navbar.Item href='/linkwa-generator'>Link WA Changer</Navbar.Item>
               </Navbar.Dropdown>
             </Navbar.Item>
           </Navbar.Segment>
