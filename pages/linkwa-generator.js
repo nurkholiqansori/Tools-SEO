@@ -134,7 +134,10 @@ const linkwaGenerator = () => {
               <small>
                 <i>(Hanya mengisi pesan saja)</i>
               </small>{' '}
-              dan pesan dapat dikosongkan juga <small><i>(Hanya mengisi nomor saja)</i></small>
+              dan pesan dapat dikosongkan juga{' '}
+              <small>
+                <i>(Hanya mengisi nomor saja)</i>
+              </small>
             </p>
           </Message.Body>
         </Message>
@@ -177,41 +180,8 @@ const linkwaGenerator = () => {
           <Card>
             <Card.Header>
               <Card.Header.Title>Hasil pengubahan</Card.Header.Title>
-              <Card.Header.Icon>
-                {result ? (
-                  <>
-                    <a href={result} target='_blank' rel='noopener noreferrer'>
-                      <Button
-                        tooltip='Success'
-                        tooltipMultiline
-                        tooltipActive
-                        rounded
-                        color='black'
-                      >
-                        <svg
-                          xmlns='http://www.w3.org/2000/svg'
-                          width='24px'
-                          height='24px'
-                          fill='none'
-                          viewBox='0 0 24 24'
-                          stroke='white'
-                          strokeWidth={2}
-                        >
-                          <path
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                            d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'
-                          />
-                        </svg>
-                      </Button>
-                    </a>
-                  </>
-                ) : (
-                  ''
-                )}
-              </Card.Header.Icon>
-              <Card.Header.Icon>
-                {result ? (
+              {result ? (
+                <Card.Header.Icon>
                   <>
                     <Button
                       tooltip='Success'
@@ -256,14 +226,49 @@ const linkwaGenerator = () => {
                       )}
                     </Button>
                   </>
-                ) : (
-                  ''
-                )}
-              </Card.Header.Icon>
+                </Card.Header.Icon>
+              ) : (
+                ''
+              )}
             </Card.Header>
             <Card.Content ref={resultState}>
               {result ? result : 'Hasil akan ditampilkan disini'}
             </Card.Content>
+            {result ? (
+              <Card.Footer as='footer'>
+                <Card.Footer.Item as='span'>
+                  <>
+                    <a href={result} target='_blank' rel='noopener noreferrer'>
+                      <Button
+                        tooltip='Success'
+                        tooltipMultiline
+                        tooltipActive
+                        rounded
+                        color='black'
+                      >
+                        <svg
+                          xmlns='http://www.w3.org/2000/svg'
+                          width='24px'
+                          height='24px'
+                          fill='none'
+                          viewBox='0 0 24 24'
+                          stroke='white'
+                          strokeWidth={2}
+                        >
+                          <path
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'
+                          />
+                        </svg>
+                      </Button>
+                    </a>
+                  </>
+                </Card.Footer.Item>
+              </Card.Footer>
+            ) : (
+              ''
+            )}
           </Card>
         </Section>
       </Section>
