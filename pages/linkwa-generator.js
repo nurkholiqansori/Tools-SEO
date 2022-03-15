@@ -49,7 +49,7 @@ const linkwaGenerator = () => {
         return false
       }
 
-      const noTelResult = identifierNoTel[0]
+      let noTelResult = identifierNoTel[0]
 
       if (noTelResult === '+') {
         setLoadingForm(false)
@@ -58,20 +58,20 @@ const linkwaGenerator = () => {
         return false
       }
 
-      setNoTelAfter(noTelResult)
-
-      if (noTelAfter.charAt(0) === '+') {
-        const raw = noTelAfter.slice(1)
-        setNoTelAfter(raw)
+      if (noTelResult.charAt(0) === '+') {
+        const raw = noTelResult.slice(1)
+        noTelResult = raw
       }
 
       if (!message) {
-        setResult('https://wa.me/' + noTelAfter)
+        setResult('https://wa.me/' + noTelResult)
         router.push('#result')
         setLoadingForm(false)
         return false
       }
 
+      setResult('https://wa.me/' + noTelResult + '/?text=' + message)
+      router.push('#result')
       setLoadingForm(false)
       return false
     }
@@ -82,8 +82,8 @@ const linkwaGenerator = () => {
       setLoadingForm(false)
       return false
     }
-    return false
     setLoadingForm(false)
+    return false
   }
 
   const resetForm = () => {
@@ -169,6 +169,38 @@ const linkwaGenerator = () => {
           <Card>
             <Card.Header>
               <Card.Header.Title>Hasil pengubahan</Card.Header.Title>
+              <Card.Header.Icon>
+                {result ? (
+                  <>
+                    <Button
+                      tooltip='Success'
+                      tooltipMultiline
+                      tooltipActive
+                      rounded
+                      color='black'
+                      onClick={() => copyResult()}
+                    >
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        width='24px'
+                        height='24px'
+                        fill='none'
+                        viewBox='0 0 24 24'
+                        stroke='white'
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap='round'
+                          strokeLinejoin='round'
+                          d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'
+                        />
+                      </svg>
+                    </Button>
+                  </>
+                ) : (
+                  ''
+                )}
+              </Card.Header.Icon>
               <Card.Header.Icon>
                 {result ? (
                   <>
