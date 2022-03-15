@@ -129,8 +129,12 @@ const linkwaGenerator = () => {
           <Message.Body>
             <strong>Note:</strong>
             <p>
-              Bebas menggunakan nomor yang diawali 0 atau +62 atau 62 dan pesan
-              bersifat opsional
+              Bebas menggunakan nomor yang diawali 0 atau +62 atau 62 atau nomor
+              dikosongkan{' '}
+              <small>
+                <i>(Hanya mengisi pesan saja)</i>
+              </small>{' '}
+              dan pesan dapat dikosongkan juga <small><i>(Hanya mengisi nomor saja)</i></small>
             </p>
           </Message.Body>
         </Message>
