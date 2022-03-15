@@ -14,6 +14,7 @@ import {
   Input,
 } from 'rbx'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const linkwaGenerator = () => {
   const [noTel, setNoTel] = React.useState('')
@@ -70,14 +71,17 @@ const linkwaGenerator = () => {
         return false
       }
 
-      setResult('https://wa.me/' + noTelResult + '/?text=' + message)
+      const encodeMessage = encodeURIComponent(message)
+
+      setResult('https://wa.me/' + noTelResult + '/?text=' + encodeMessage)
       router.push('#result')
       setLoadingForm(false)
       return false
     }
 
     if (!noTel) {
-      setResult('https://wa.me/?text=' + message)
+      const encodeMessage = encodeURIComponent(message)
+      setResult('https://wa.me/?text=' + encodeMessage)
       router.push('#result')
       setLoadingForm(false)
       return false
@@ -172,30 +176,31 @@ const linkwaGenerator = () => {
               <Card.Header.Icon>
                 {result ? (
                   <>
-                    <Button
-                      tooltip='Success'
-                      tooltipMultiline
-                      tooltipActive
-                      rounded
-                      color='black'
-                      onClick={() => copyResult()}
-                    >
-                      <svg
-                        xmlns='http://www.w3.org/2000/svg'
-                        width='24px'
-                        height='24px'
-                        fill='none'
-                        viewBox='0 0 24 24'
-                        stroke='white'
-                        strokeWidth={2}
+                    <a href={result} target='_blank' rel='noopener noreferrer'>
+                      <Button
+                        tooltip='Success'
+                        tooltipMultiline
+                        tooltipActive
+                        rounded
+                        color='black'
                       >
-                        <path
-                          strokeLinecap='round'
-                          strokeLinejoin='round'
-                          d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'
-                        />
-                      </svg>
-                    </Button>
+                        <svg
+                          xmlns='http://www.w3.org/2000/svg'
+                          width='24px'
+                          height='24px'
+                          fill='none'
+                          viewBox='0 0 24 24'
+                          stroke='white'
+                          strokeWidth={2}
+                        >
+                          <path
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'
+                          />
+                        </svg>
+                      </Button>
+                    </a>
                   </>
                 ) : (
                   ''
