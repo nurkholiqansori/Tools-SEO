@@ -6,6 +6,8 @@ import {
 } from 'rbx'
 import NavBar from './Navbar'
 import { NextSeo } from 'next-seo'
+import jasaWebSEO from '../images/jasawebseo.net.png'
+import Image from 'next/image'
 
 const LayoutPages = ({ title, url, children }) => {
   return (
@@ -31,7 +33,7 @@ const LayoutPages = ({ title, url, children }) => {
           <p>
             &copy;{' '}
             <a
-              href='htpps://www.nurkholiqansori.me'
+              href='https://www.nurkholiqansori.me'
               title='Nur Kholiq Ansori Website'
               target='_blank'
               rel='noopener noreferrer'
@@ -39,6 +41,18 @@ const LayoutPages = ({ title, url, children }) => {
               Nur Kholiq Ansori
             </a>{' '}
             All rights reserved.
+          </p>
+          <p>
+            Presented by <br />
+            <br />
+            <a
+              href='https://jasawebseo.net'
+              title='Jasa Web SEO'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <Image src={jasaWebSEO} priority />
+            </a>
           </p>
         </Content>
       </Footer>

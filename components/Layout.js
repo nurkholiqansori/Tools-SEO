@@ -9,6 +9,8 @@ import {
 } from 'rbx'
 import NavBar from './Navbar'
 import { NextSeo } from 'next-seo'
+import jasaWebSEO from '../images/jasawebseo.net.png'
+import Image from 'next/image'
 
 const Layout = ({ children }) => {
   return (
@@ -16,7 +18,7 @@ const Layout = ({ children }) => {
       <NextSeo
         title='Beranda | Tools SEO'
         description='Alat untuk membantu pengerjaan SEO dengan masukkan yang tidak terbatas.'
-        canonical= 'http://tools-seo.vercel.app/'
+        canonical='http://tools-seo.vercel.app/'
         openGraph={{
           url: 'http://tools-seo.vercel.app/',
           title: 'Beranda | Tools SEO',
@@ -45,7 +47,7 @@ const Layout = ({ children }) => {
           <p>
             &copy;{' '}
             <a
-              href='htpps://www.nurkholiqansori.me'
+              href='https://www.nurkholiqansori.me'
               title='Nur Kholiq Ansori Website'
               target='_blank'
               rel='noopener noreferrer'
@@ -53,6 +55,19 @@ const Layout = ({ children }) => {
               Nur Kholiq Ansori
             </a>{' '}
             All rights reserved.
+          </p>
+          <p>
+            Presented by
+            <br />
+            <br />
+            <a
+              href='https://jasawebseo.net'
+              title='Jasa Web SEO'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <Image src={jasaWebSEO} priority />
+            </a>
           </p>
         </Content>
       </Footer>
