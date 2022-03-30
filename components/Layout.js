@@ -57,8 +57,7 @@ const Layout = ({ children }) => {
             All rights reserved.
           </p>
           <p>
-            Presented by
-            <br />
+            Presented by<br />
             <br />
             <a
               href='https://jasawebseo.net'
