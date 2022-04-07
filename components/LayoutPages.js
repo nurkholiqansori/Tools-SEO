@@ -17,11 +17,11 @@ const LayoutPages = ({ title, url, children }) => {
         additionalLinkTags={[
           {
             rel: 'icon',
-            href: favicon,
+            href: 'https://tools-seo.vercel.app/images/favicon.ico',
           },
           {
             rel: 'apple-touch-icon',
-            href: logo,
+            href: 'https://tools-seo.vercel.app/images/logo.png',
             sizes: '76x76',
           },
         ]}
@@ -32,13 +32,13 @@ const LayoutPages = ({ title, url, children }) => {
             'Alat untuk membantu pengerjaan SEO dengan masukkan yang tidak terbatas.',
           images: [
             {
-              url: favicon,
+              url: 'https://tools-seo.vercel.app/images/logo.png',
               width: 800,
               height: 600,
               alt: 'NKA icon',
             },
             {
-              url: logo,
+              url: 'https://tools-seo.vercel.app/images/logo.png',
               width: 800,
               height: 600,
               alt: 'NKA logo',
