@@ -1,12 +1,9 @@
-import {
-  Generic,
-  Container,
-  Content,
-  Footer,
-} from 'rbx'
+import { Generic, Container, Content, Footer } from 'rbx'
 import NavBar from './Navbar'
-import { NextSeo } from 'next-seo'
+import { LogoJsonLd, NextSeo } from 'next-seo'
 import jasaWebSEO from '../images/jasawebseo.net.png'
+import icon from '../images/favicon.ico'
+import logo from '../images/logo.png'
 import Image from 'next/image'
 
 const LayoutPages = ({ title, url, children }) => {
@@ -16,11 +13,36 @@ const LayoutPages = ({ title, url, children }) => {
         title={`${title} | Tools SEO`}
         description='Alat untuk membantu pengerjaan SEO dengan masukkan yang tidak terbatas.'
         canonical='http://tools-seo.vercel.app'
+        additionalLinkTags={[
+          {
+            rel: 'icon',
+            href: '/images/favicon.ico',
+          },
+          {
+            rel: 'apple-touch-icon',
+            href: '/images/logo.png',
+            sizes: '76x76',
+          },
+        ]}
         openGraph={{
           url: `http://tools-seo.vercel.app${url}`,
           title: `${title} | Tools SEO`,
           description:
             'Alat untuk membantu pengerjaan SEO dengan masukkan yang tidak terbatas.',
+          images: [
+            {
+              url: '/images/favicon.ico',
+              width: 800,
+              height: 600,
+              alt: 'NKA icon',
+            },
+            {
+              url: '/images/logo.png',
+              width: 800,
+              height: 600,
+              alt: 'NKA logo',
+            },
+          ],
           site_name: `${title} | Tools SEO`,
         }}
       />
