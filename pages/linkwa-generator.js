@@ -7,34 +7,30 @@ import {
   Textarea,
   Title,
   Message,
-  Notification,
-  Delete,
   Card,
   Field,
   Input,
 } from 'rbx'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
+import { toast } from 'react-toastify'
 
 const linkwaGenerator = () => {
   const [noTel, setNoTel] = React.useState('')
   const [message, setMessage] = React.useState('')
   const [result, setResult] = React.useState('')
   const [loadingForm, setLoadingForm] = React.useState(false)
-  const [warningNotification, setWarningNotification] = React.useState(false)
-  const [warningMessage, setWarningMessage] = React.useState('')
   const router = useRouter()
   const resultState = React.useRef(null)
   const [successCopy, setSuccessCopy] = React.useState(false)
   const [noTelAfter, setNoTelAfter] = React.useState('')
+  const resultRef = React.useRef(null)
 
   const submitHandler = () => {
     setLoadingForm(true)
 
     if (!noTel && !message) {
       setLoadingForm(false)
-      setWarningMessage('Form harus terisi')
-      setWarningNotification(true)
+      toast('Form harus terisi', { type: 'error' })
       return false
     }
 
@@ -45,8 +41,9 @@ const linkwaGenerator = () => {
 
       if (identifierNoTel === null) {
         setLoadingForm(false)
-        setWarningMessage('Nomor tidak valid')
-        setWarningNotification(true)
+        toast('No telpon harus diawali dengan +62, 62, atau 0', {
+          type: 'error',
+        })
         return false
       }
 
@@ -54,8 +51,9 @@ const linkwaGenerator = () => {
 
       if (noTelResult === '+') {
         setLoadingForm(false)
-        setWarningMessage('Nomor tidak valid')
-        setWarningNotification(true)
+        toast('No telpon harus diawali dengan +62, 62, atau 0', {
+          type: 'error',
+        })
         return false
       }
 
@@ -66,7 +64,9 @@ const linkwaGenerator = () => {
 
       if (!message) {
         setResult('https://wa.me/' + noTelResult)
-        router.push('#result')
+        resultRef.current.scrollIntoView({
+          behavior: 'smooth',
+        })
         setLoadingForm(false)
         return false
       }
@@ -74,7 +74,9 @@ const linkwaGenerator = () => {
       const encodeMessage = encodeURIComponent(message)
 
       setResult('https://wa.me/' + noTelResult + '/?text=' + encodeMessage)
-      router.push('#result')
+      resultRef.current.scrollIntoView({
+        behavior: 'smooth',
+      })
       setLoadingForm(false)
       return false
     }
@@ -82,7 +84,9 @@ const linkwaGenerator = () => {
     if (!noTel) {
       const encodeMessage = encodeURIComponent(message)
       setResult('https://wa.me/?text=' + encodeMessage)
-      router.push('#result')
+      resultRef.current.scrollIntoView({
+        behavior: 'smooth',
+      })
       setLoadingForm(false)
       return false
     }
@@ -111,20 +115,6 @@ const linkwaGenerator = () => {
         <Title as='h2' size='5'>
           Masukkan Nomor Telepon dan Pesan
         </Title>
-        {warningNotification ? (
-          <Notification color='danger'>
-            <Delete
-              as='button'
-              onClick={() => {
-                setWarningNotification(false)
-                setWarningMessage('')
-              }}
-            />
-            {warningMessage ? warningMessage : 'Ada yang error'}
-          </Notification>
-        ) : (
-          ''
-        )}
         <Message color='black'>
           <Message.Body>
             <strong>Note:</strong>
@@ -176,7 +166,7 @@ const linkwaGenerator = () => {
             )}
           </Button.Group>
         </Section>
-        <Section>
+        <Section ref={resultRef}>
           <Card>
             <Card.Header>
               <Card.Header.Title>Hasil pengubahan</Card.Header.Title>

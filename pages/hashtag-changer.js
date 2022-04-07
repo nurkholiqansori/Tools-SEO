@@ -16,6 +16,7 @@ import {
 } from 'rbx'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { toast } from 'react-toastify'
 
 const hashtagChanger = () => {
   const [phrase, setPhrase] = React.useState('')
@@ -27,38 +28,39 @@ const hashtagChanger = () => {
   const router = useRouter()
   const resultState = React.useRef(null)
   const [successCopy, setSuccessCopy] = React.useState(false)
+  const resultRef = React.useRef(null)
 
   const submitHandler = () => {
     setLoadingForm(true)
 
     if (!phrase) {
       setLoadingForm(false)
-      setWarningMessage('Form harus terisi')
-      setWarningNotification(true)
-      return false
-    }
-
-    const searchSpecified = phrase.search(', ')
-    if (searchSpecified === -1) {
-      setLoadingForm(false)
-      setWarningMessage("Gunakan comma separator dari kami terlebih dahulu untuk memenuhi syarat")
-      setWarningNotification(true)
+      toast('Form harus terisi', { type: 'error' })
       return false
     }
 
     const newLineSearch = phrase.search('\n')
     if (newLineSearch !== -1) {
       setLoadingForm(false)
-      setWarningMessage(
-        'Gunakan comma separator dari kami terlebih dahulu untuk memenuhi syarat',
-      )
-      setWarningNotification(true)
+      toast('Gunakan enter untuk memisahkan hashtag', {
+        type: 'error',
+      })
       return false
     }
 
     const phraseArray = phrase.split(', ')
     const hashtag = '#'
     if (smallCase) {
+          const searchSpecified = phrase.search(', ')
+          if (searchSpecified === -1) {
+            setLoadingForm(false)
+            const result = phrase.replace(/ /g, '')
+            setResult('#' + result.toLowerCase())
+            resultRef.current.scrollIntoView({
+              behavior: 'smooth',
+            })
+            return false
+          }
       let resultPhrase = []
       phraseArray.forEach((el) => {
         const selectionArray = hashtag.concat(el)
@@ -68,8 +70,20 @@ const hashtagChanger = () => {
       })
       const resultJoin = resultPhrase.join(' ')
       setResult(resultJoin.toString().toLowerCase())
-      router.push('#result')
+      resultRef.current.scrollIntoView({
+        behavior: 'smooth',
+      })
     } else {
+      const searchSpecified = phrase.search(', ')
+      if (searchSpecified === -1) {
+        setLoadingForm(false)
+        const result = phrase.replace(/ /g, '')
+        setResult('#' + result.toLowerCase())
+        resultRef.current.scrollIntoView({
+          behavior: 'smooth',
+        })
+        return false
+      }
       let resultPhrase = []
       phraseArray.forEach((el) => {
         const selectionArray = hashtag.concat(el)
@@ -79,7 +93,9 @@ const hashtagChanger = () => {
       })
       const resultJoin = resultPhrase.join(' ')
       setResult(resultJoin.toString())
-      router.push('#result')
+      resultRef.current.scrollIntoView({
+        behavior: 'smooth',
+      })
     }
     //Closing
     setLoadingForm(false)
@@ -114,34 +130,19 @@ const hashtagChanger = () => {
             <Select.Container rounded color='black'>
               <Select
                 onChange={(e) => {
-                  if (e.target.value === 'yes') {
+                  if (e.target.value === 'all-small') {
                     setSmallCase(true)
                   } else {
                     setSmallCase(false)
                   }
                 }}
               >
-                <Select.Option>Huruf kecil semua?</Select.Option>
-                <Select.Option value='yes'>Ya</Select.Option>
-                <Select.Option value='no'>Tidak</Select.Option>
+                <Select.Option>Tidak memilih pengaturan</Select.Option>
+                <Select.Option value='all-small'>Huruf kecil semua</Select.Option>
               </Select>
             </Select.Container>
           </Column>
         </Column.Group>
-        {warningNotification ? (
-          <Notification color='danger'>
-            <Delete
-              as='button'
-              onClick={() => {
-                setWarningNotification(false)
-                setWarningMessage('')
-              }}
-            />
-            {warningMessage ? warningMessage : 'Ada yang error'}
-          </Notification>
-        ) : (
-          ''
-        )}
         <Message color='black'>
           <Message.Body>
             <strong>Catatan:</strong>
@@ -185,7 +186,7 @@ const hashtagChanger = () => {
             )}
           </Button.Group>
         </Section>
-        <Section>
+        <Section ref={resultRef}>
           <Card>
             <Card.Header>
               <Card.Header.Title>Hasil pengubahan</Card.Header.Title>

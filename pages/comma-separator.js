@@ -123,7 +123,7 @@ const commaSeparator = () => {
                   }
                 }}
               >
-                <Select.Option>Pengaturan hasil</Select.Option>
+                <Select.Option>Tidak memilih pengaturan</Select.Option>
                 <Select.Option value='first-big'>Huruf Pertama besar</Select.Option>
                 <Select.Option value='all-small'>Huruf Kecil semua</Select.Option>
               </Select>
