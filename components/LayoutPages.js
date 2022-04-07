@@ -2,8 +2,6 @@ import { Generic, Container, Content, Footer } from 'rbx'
 import NavBar from './Navbar'
 import { NextSeo } from 'next-seo'
 import jasaWebSEO from '../images/jasawebseo.net.png'
-import favicon from '../images/favicon.ico'
-import logo from '../images/logo.png'
 
 import Image from 'next/image'
 
@@ -16,11 +14,11 @@ const LayoutPages = ({ title, url, children }) => {
         additionalLinkTags={[
           {
             rel: 'icon',
-            href: favicon,
+            href: '/images/favicon.ico',
           },
           {
             rel: 'apple-touch-icon',
-            href: logo,
+            href: '/images/logo.png',
             sizes: '76x76',
           },
         ]}
@@ -31,13 +29,13 @@ const LayoutPages = ({ title, url, children }) => {
             'Alat untuk membantu pengerjaan SEO dengan masukkan yang tidak terbatas.',
           images: [
             {
-              url: favicon,
+              url: '/images/favicon.ico',
               width: 800,
               height: 600,
               alt: 'NKA icon',
             },
             {
-              url: logo,
+              url: '/images/logo.png',
               width: 800,
               height: 600,
               alt: 'NKA logo',
