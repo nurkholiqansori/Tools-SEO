@@ -15,55 +15,61 @@ import {
   Generic,
 } from 'rbx'
 import { useRouter } from 'next/router'
+import { toast } from 'react-toastify'
 
 const commaSeparator = () => {
   const [phrase, setPhrase] = React.useState('')
   const [result, setResult] = React.useState('')
   const [loadingForm, setLoadingForm] = React.useState(false)
   const [smallCase, setSmallCase] = React.useState(false)
-  const [warningNotification, setWarningNotification] = React.useState(false)
-  const [warningMessage, setWarningMessage] = React.useState('')
+  const [upperFirstCase, setUpperFirstCase] = React.useState(false)
   const router = useRouter()
   const resultState = React.useRef(null)
   const [successCopy, setSuccessCopy] = React.useState(false)
-  const [upperFirstCase, setUpperFirstCase] = React.useState(false)
+  const hasilRef = React.useRef(null)
 
   const submitHandler = () => {
     setLoadingForm(true)
 
     if (!phrase) {
       setLoadingForm(false)
-      setWarningMessage('Form harus terisi')
-      setWarningNotification(true)
+      toast('Form harus terisi', { type: 'error' })
       return false
     }
 
     const searchSpecified = phrase.search('\n')
     if (searchSpecified === -1) {
       setLoadingForm(false)
-      setWarningMessage('Format harus sesuai dengan contoh')
-      setWarningNotification(true)
+      toast('Pisahkan frasa dengan enter', {
+        type: 'error',
+        autoClose: 2000,
+      })
       return false
     }
 
     const newLineSearch = phrase.search(', ')
     if (newLineSearch !== -1) {
       setLoadingForm(false)
-      setWarningMessage('Format harus sesuai dengan contoh')
-      setWarningNotification(true)
+      toast('Pisahkan frasa dengan enter', {
+        type: 'error',
+      })
       return false
     }
 
-    const phraseArray = phrase.split('\n')
+    const phraseFilter = phrase.split('\n')
+    const phraseArray2 = phraseFilter
+      .filter((item) => item !== '')
+    const phraseArray = phraseArray2.filter((item) => item !== ' ')
+
     if (smallCase) {
-      const resultJoin = phraseArray.join(' ')
+      const resultJoin = phraseArray.join(', ')
       setResult(resultJoin.toString().toLowerCase())
-      router.push('#result')
+      hasilRef.current.scrollIntoView({ behavior: 'smooth' })
       return false
     } else {
       const resultJoin = phraseArray.join(', ')
       setResult(resultJoin.toString())
-      router.push('#result')
+      hasilRef.current.scrollIntoView({ behavior: 'smooth' })
     }
 
     if (upperFirstCase) {
@@ -104,60 +110,26 @@ const commaSeparator = () => {
               Pengaturan untuk hasilnya:{' '}
             </Title>
           </Column>
-          <Column size='two-fifth'>
-            <Select.Container rounded color='black'>
-              <Select
-                onChange={(e) => {
-                  if (e.target.value === 'yes') {
-                    setSmallCase(true)
-                  } else {
-                    setSmallCase(false)
-                  }
-                }}
-              >
-                <Select.Option>Huruf kecil semua?</Select.Option>
-                <Select.Option value='yes'>Ya</Select.Option>
-                <Select.Option value='no'>Tidak</Select.Option>
-              </Select>
-            </Select.Container>
-          </Column>
-          <Column size='one-fifth'>
-            <Generic as='span'>
-              <p style={{ textAlign: 'center' }}>Atau</p>
-            </Generic>
-          </Column>
           <Column>
             <Select.Container rounded color='black'>
               <Select
                 onChange={(e) => {
-                  if (e.target.value === 'yes') {
+                  if (e.target.value === 'first-big') {
                     setUpperFirstCase(true)
+                     setSmallCase(false)
                   } else {
                     setUpperFirstCase(false)
+                    setSmallCase(true)
                   }
                 }}
               >
-                <Select.Option>Huruf pertama besar?</Select.Option>
-                <Select.Option value='yes'>Ya</Select.Option>
-                <Select.Option value='no'>Tidak</Select.Option>
+                <Select.Option>Pengaturan hasil</Select.Option>
+                <Select.Option value='first-big'>Huruf Pertama besar</Select.Option>
+                <Select.Option value='all-small'>Huruf Kecil semua</Select.Option>
               </Select>
             </Select.Container>
           </Column>
         </Column.Group>
-        {warningNotification ? (
-          <Notification color='danger'>
-            <Delete
-              as='button'
-              onClick={() => {
-                setWarningNotification(false)
-                setWarningMessage('')
-              }}
-            />
-            {warningMessage ? warningMessage : 'Ada yang error'}
-          </Notification>
-        ) : (
-          ''
-        )}
         <Message color='black'>
           <Message.Body>
             <strong>Format contoh:</strong>
@@ -200,7 +172,7 @@ const commaSeparator = () => {
             )}
           </Button.Group>
         </Section>
-        <Section>
+        <Section ref={hasilRef}>
           <Card>
             <Card.Header>
               <Card.Header.Title>Hasil pengubahan</Card.Header.Title>
