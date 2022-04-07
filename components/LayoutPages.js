@@ -1,6 +1,6 @@
 import { Generic, Container, Content, Footer } from 'rbx'
 import NavBar from './Navbar'
-import { LogoJsonLd, NextSeo } from 'next-seo'
+import { NextSeo } from 'next-seo'
 import jasaWebSEO from '../images/jasawebseo.net.png'
 import favicon from '../images/favicon.ico'
 import logo from '../images/logo.png'
@@ -13,15 +13,14 @@ const LayoutPages = ({ title, url, children }) => {
       <NextSeo
         title={`${title} | Tools SEO`}
         description='Alat untuk membantu pengerjaan SEO dengan masukkan yang tidak terbatas.'
-        canonical='http://tools-seo.vercel.app'
         additionalLinkTags={[
           {
             rel: 'icon',
-            href: 'https://tools-seo.vercel.app/images/favicon.ico',
+            href: favicon,
           },
           {
             rel: 'apple-touch-icon',
-            href: 'https://tools-seo.vercel.app/images/logo.png',
+            href: logo,
             sizes: '76x76',
           },
         ]}
@@ -32,13 +31,13 @@ const LayoutPages = ({ title, url, children }) => {
             'Alat untuk membantu pengerjaan SEO dengan masukkan yang tidak terbatas.',
           images: [
             {
-              url: 'https://tools-seo.vercel.app/images/logo.png',
+              url: favicon,
               width: 800,
               height: 600,
               alt: 'NKA icon',
             },
             {
-              url: 'https://tools-seo.vercel.app/images/logo.png',
+              url: logo,
               width: 800,
               height: 600,
               alt: 'NKA logo',
