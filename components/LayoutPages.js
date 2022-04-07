@@ -17,7 +17,7 @@ const LayoutPages = ({ title, url, children }) => {
         additionalLinkTags={[
           {
             rel: 'icon',
-            href: icon,
+            href: favicon,
           },
           {
             rel: 'apple-touch-icon',
@@ -32,7 +32,7 @@ const LayoutPages = ({ title, url, children }) => {
             'Alat untuk membantu pengerjaan SEO dengan masukkan yang tidak terbatas.',
           images: [
             {
-              url: icon,
+              url: favicon,
               width: 800,
               height: 600,
               alt: 'NKA icon',
